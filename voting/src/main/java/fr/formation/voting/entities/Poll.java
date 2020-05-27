@@ -8,22 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "polls")
+@Table(name = "polls", uniqueConstraints = {
+	@UniqueConstraint(name = "polls_polling_date_UQ", columnNames = {
+		"polling_date" }) })
 public class Poll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "BIGINT UNSIGNED")
     private Long id;
 
     @Column(name = "description", nullable = false, length = 100)
     private String description;
 
-    @Column(name = "polling_date", nullable = false, unique = true)
+    @Column(name = "polling_date", nullable = false)
     private LocalDate pollingDate;
 
-    @Column(name = "round_number", nullable = false)
+    @Column(name = "round_number", columnDefinition = "SMALLINT UNSIGNED", nullable = false)
     private int roundNumber;
 
     public Poll() {

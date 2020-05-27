@@ -1,27 +1,32 @@
 package fr.formation.voting.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "candidates")
+@Table(name = "candidates", indexes = {
+	@Index(name = "candidates_person_id_IDX", columnList = "person_id") })
 public class Candidate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "BIGINT UNSIGNED")
     private Long id;
 
     // One Candidate to One Person
     // Sens inverse: One Person to One Candidate
     // @ManyToOne marche aussi (techniquement) !
     // @OneToOne: vrai "sens" de la relation
-    @ManyToOne
-    @JoinColumn(nullable = false, unique = true, name = "person_id")
+    @OneToOne
+    @JoinColumn(nullable = false, name = "person_id", foreignKey = @ForeignKey(name = "candidates_person_id_FK"))
     private Person person;
 
     public Candidate() {

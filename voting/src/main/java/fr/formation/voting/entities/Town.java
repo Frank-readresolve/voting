@@ -13,6 +13,7 @@ public class Town {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "BIGINT UNSIGNED")
     private Long id;
 
     @Column(name = "zip_code", nullable = false, length = 5)
