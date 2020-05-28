@@ -10,10 +10,13 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "candidates", indexes = {
-	@Index(name = "candidates_person_id_IDX", columnList = "person_id") })
+@Table(name = "candidates", uniqueConstraints = {
+	@UniqueConstraint(name = "candidates_person_id_UQ", columnNames = {
+		"person_id" }) }, indexes = {
+			@Index(name = "candidates_person_id_IDX", columnList = "person_id") })
 public class Candidate {
 
     @Id

@@ -13,13 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "electors", indexes = {
-	@Index(name = "electors_person_id_IDX", columnList = "person_id"),
-	@Index(name = "electors_birth_town_id_IDX", columnList = "birth_town_id"),
-	@Index(name = "electors_home_address_id_IDX", columnList = "home_address_id"),
-	@Index(name = "electors_polling_station_id_IDX", columnList = "polling_station_id") })
+@Table(name = "electors", uniqueConstraints = {
+	@UniqueConstraint(name = "electors_person_id_UQ", columnNames = {
+		"person_id" }) }, indexes = {
+			@Index(name = "electors_person_id_IDX", columnList = "person_id"),
+			@Index(name = "electors_birth_town_id_IDX", columnList = "birth_town_id"),
+			@Index(name = "electors_home_address_id_IDX", columnList = "home_address_id"),
+			@Index(name = "electors_polling_station_id_IDX", columnList = "polling_station_id") })
 public class Elector {
 
     @Id
